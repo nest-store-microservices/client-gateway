@@ -10,6 +10,8 @@ export class RpcCustomExceptionFilter implements ExceptionFilter {
 
     const rpcError = exception.getError();
 
+    
+
     if (
       typeof rpcError === 'object' &&
       'status' in rpcError &&
