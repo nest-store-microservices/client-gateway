@@ -7,6 +7,8 @@ import { LoginDto, RegisterDto } from './dtos';
 import { catchError } from 'rxjs';
 import { Request } from 'express';
 import { AuthGuard } from './guard/auth.guard';
+import { Token, User } from './decortators';
+import { CurrentUser } from './interfaces/current-user.interfaces';
 
 @Controller('auth')
 export class AuthController {
@@ -37,9 +39,13 @@ export class AuthController {
 
     @UseGuards(AuthGuard)
     @Get('validate-token')
-    refreshToken(@Req() req: Request) {
-      
-      return this.client.send('auth.verify', {})
+    refreshToken(@User() user: CurrentUser, @Token() token: string) {
+
+      return {
+        user,
+        token
+      }
+     // return this.client.send('auth.verify', {})
     }
 
 }
